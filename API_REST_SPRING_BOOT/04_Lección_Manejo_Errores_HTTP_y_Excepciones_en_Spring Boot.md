@@ -168,9 +168,9 @@ public class ErrorMessage {
     private String message;
     private String path;
 
-    public ErrorMessage(Exception exception, String path, String message) {
+    public ErrorMessage(Exception exception, String path) {
         this.exception = exception.getClass().getSimpleName();
-        this.message = message;
+        this.message = exception.getMessage();
         this.path = path;
     }
 
@@ -199,42 +199,42 @@ public class APIExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
     public ErrorMessage handleBadRequest(HttpServletRequest request, Exception exception) {
-        return new ErrorMessage(exception, request.getRequestURI(), "Bad Request");
+        return new ErrorMessage(exception, request.getRequestURI());
     }
 
     @ExceptionHandler(NotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ResponseBody
     public ErrorMessage handleNotFound(HttpServletRequest request, Exception exception) {
-        return new ErrorMessage(exception, request.getRequestURI(), "Not Found");
+        return new ErrorMessage(exception, request.getRequestURI());
     }
 
     @ExceptionHandler(ConflictException.class)
     @ResponseStatus(HttpStatus.CONFLICT)
     @ResponseBody
     public ErrorMessage handleConflict(HttpServletRequest request, Exception exception) {
-        return new ErrorMessage(exception, request.getRequestURI(), "Conflict");
+        return new ErrorMessage(exception, request.getRequestURI());
     }
 
     @ExceptionHandler(UnauthorizedException.class)
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ResponseBody
     public ErrorMessage handleUnauthorized(HttpServletRequest request, Exception exception) {
-        return new ErrorMessage(exception, request.getRequestURI(), "Unauthorized");
+        return new ErrorMessage(exception, request.getRequestURI());
     }
 
     @ExceptionHandler(ForbiddenException.class)
     @ResponseStatus(HttpStatus.FORBIDDEN)
     @ResponseBody
     public ErrorMessage handleForbidden(HttpServletRequest request, Exception exception) {
-        return new ErrorMessage(exception, request.getRequestURI(), "Forbidden");
+        return new ErrorMessage(exception, request.getRequestURI());
     }
 
     @ExceptionHandler(FatalErrorException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ResponseBody
     public ErrorMessage handleFatalError(HttpServletRequest request, Exception exception) {
-        return new ErrorMessage(exception, request.getRequestURI(), "Internal Server Error");
+        return new ErrorMessage(exception, request.getRequestURI());
     }
 }
 
